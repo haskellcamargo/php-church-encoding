@@ -85,3 +85,15 @@ $not = function ($l) use ($true, $false) {
   $call = $l($false);
   return $call($true);
 };
+
+// Only one of the operands can be true. We get false if both are false or both
+// are true.
+// λa.λb.a (b False True) (b True False)
+$xor = function ($a) use ($true, $false) {
+  return function ($b) use ($a, $true, $false) {
+    $b_false_true = $b($false);
+    $call = $a($b_false_true($true));
+    $b_true_false = $b($true);
+    return $call($b_true_false($false));
+  };
+};

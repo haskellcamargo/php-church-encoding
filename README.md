@@ -12,6 +12,7 @@ We represent booleans, we build boolean algebra and we represent numerals and ba
     - [x] and
     - [x] or
     - [x] not
+    - [x] xor
 - Numerals
   - [x] succ
   - [x] 0

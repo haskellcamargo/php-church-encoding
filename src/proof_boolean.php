@@ -103,3 +103,25 @@ $proof_not_true_and_true = $not($true_and_true);
 $proof_not_true_and_true = $proof_not_true_and_true(true);
 $proof_not_true_and_true = $proof_not_true_and_true(false);
 var_dump($proof_not_true_and_true);
+
+// Proofing logical xor
+# true ^ true
+$proof_true_xor_true = $xor($true);
+$proof_true_xor_true = $proof_true_xor_true($true);
+$proof_true_xor_true = $proof_true_xor_true(true);
+$proof_true_xor_true = $proof_true_xor_true(false);
+var_dump($proof_true_xor_true);
+
+# true ^ false
+$proof_true_xor_false = $xor($true);
+$proof_true_xor_false = $proof_true_xor_false($false);
+$proof_true_xor_false = $proof_true_xor_false(true);
+$proof_true_xor_false = $proof_true_xor_false(false);
+var_dump($proof_true_xor_false);
+
+# false ^ false
+$proof_false_xor_false = $xor($false);
+$proof_false_xor_false = $proof_false_xor_false($false);
+$proof_false_xor_false = $proof_false_xor_false(true);
+$proof_false_xor_false = $proof_false_xor_false(false);
+var_dump($proof_false_xor_false);
