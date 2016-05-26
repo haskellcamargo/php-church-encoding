@@ -88,7 +88,7 @@ $not = function ($l) use ($true, $false) {
 
 // Only one of the operands can be true. We get false if both are false or both
 // are true.
-// λa.λb.a (b False True) (b True False)
+// λa.λb.a (b false true) (b true false)
 $xor = function ($a) use ($true, $false) {
   return function ($b) use ($a, $true, $false) {
     $b_false_true = $b($false);
