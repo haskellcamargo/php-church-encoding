@@ -74,3 +74,14 @@ $or = function ($l) use ($true) {
     return $call($c);
   };
 };
+
+// Logical "not"
+// Return the oposite value by calling the conversion passing other encoded
+// values. It can be chained and applied to other computations, since we
+// return church-encoded values.
+// Trivial.
+// λl. l false true
+$not = function ($l) use ($true, $false) {
+  $call = $l($false);
+  return $call($true);
+};
