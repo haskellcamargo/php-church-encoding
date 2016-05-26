@@ -113,8 +113,7 @@ $succ = function ($n) {
   return function ($s) use ($n) {
     return function ($z) use ($s, $n) {
       $sub_call = $n($s);
-      $sub_call = $sub_call($z);
-      return $s($sub_call);
+      return $s($sub_call($z));
     };
   };
 };
