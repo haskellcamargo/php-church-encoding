@@ -50,3 +50,16 @@ $boolean_to_primitive = function ($l) {
     };
   };
 };
+
+// Here we start to implement boolean algebra.
+// Logical "and"
+// We represent $l as the logic value and we return $c if $l is $true or $f
+// if $l is $false. Therefore, by logic, if $l is $true and $c is $false, we
+// return $c ($false), otherwise, when $l and $c are $true, return $true
+// λl.λc l c f
+$and = function ($l) use ($false) {
+  return function ($c) use ($l, $false) {
+    $call = $l($c);
+    return $call($false);
+  };
+};

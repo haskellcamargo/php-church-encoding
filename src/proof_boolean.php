@@ -29,7 +29,27 @@ require_once 'boolean.php';
 $proof_boolean_true = $boolean_to_primitive($true);
 $proof_boolean_true = $proof_boolean_true(true);
 $proof_boolean_true = $proof_boolean_true(false);
+var_dump($proof_boolean_true);
 
 $proof_boolean_false = $boolean_to_primitive($false);
 $proof_boolean_false = $proof_boolean_false(true);
 $proof_boolean_false = $proof_boolean_false(false);
+var_dump($proof_boolean_false);
+
+$proof_and_true_true = $and($true);
+$proof_and_true_true = $proof_and_true_true($true);
+$proof_and_true_true = $proof_and_true_true(true);
+$proof_and_true_true = $proof_and_true_true(false);
+var_dump($proof_and_true_true);
+
+$proof_and_true_false = $and($true);
+$proof_and_true_false = $proof_and_true_false($false);
+$proof_and_true_false = $proof_and_true_false(true);
+$proof_and_true_false = $proof_and_true_false(false);
+var_dump($proof_and_true_false);
+
+$proof_and_false_false = $and($false);
+$proof_and_false_false = $proof_and_false_false($false);
+$proof_and_false_false = $proof_and_false_false(true);
+$proof_and_false_false = $proof_and_false_false(false);
+var_dump($proof_and_false_false);
