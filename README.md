@@ -12,22 +12,22 @@ We represent booleans, we build boolean algebra and we represent numerals and ba
     - [x] and
     - [x] or
     - [x] not
-    - [ ] xor
 - Numerals
-  - [ ] 0
-  - [ ] 1
-  - [ ] 2
-  - [ ] 3
-  - [ ] 4
-  - [ ] 5
-  - [ ] 6
-  - [ ] 7
-  - [ ] 8
-  - [ ] 9
+  - [x] succ
+  - [x] 0
+  - [x] 1
+  - [x] 2
+  - [x] 3
+  - [x] 4
+  - [x] 5
+  - [x] 6
+  - [x] 7
+  - [x] 8
+  - [x] 9
   - Arithmetic
     - [ ] +
     - [ ] -
     - [ ] ×
     - [ ] ÷
 - [ ] Pairs
-  
+
