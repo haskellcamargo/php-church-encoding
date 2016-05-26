@@ -56,10 +56,21 @@ $boolean_to_primitive = function ($l) {
 // We represent $l as the logic value and we return $c if $l is $true or $f
 // if $l is $false. Therefore, by logic, if $l is $true and $c is $false, we
 // return $c ($false), otherwise, when $l and $c are $true, return $true
-// λl.λc l c f
+// λl.λc l c false
 $and = function ($l) use ($false) {
   return function ($c) use ($l, $false) {
     $call = $l($c);
     return $call($false);
+  };
+};
+
+// Logical "or"
+// $l is the logic value. When $l is $false, return $c ($true or $false). When
+// $l is $true, return $true (one matches, short circuit).
+// λl.λc. l true c
+$or = function ($l) use ($true) {
+  return function ($c) use ($l, $true) {
+    $call = $l($true);
+    return $call($c);
   };
 };

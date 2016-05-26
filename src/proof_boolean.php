@@ -36,6 +36,7 @@ $proof_boolean_false = $proof_boolean_false(true);
 $proof_boolean_false = $proof_boolean_false(false);
 var_dump($proof_boolean_false);
 
+// Proofing logical and
 $proof_and_true_true = $and($true);
 $proof_and_true_true = $proof_and_true_true($true);
 $proof_and_true_true = $proof_and_true_true(true);
@@ -53,3 +54,23 @@ $proof_and_false_false = $proof_and_false_false($false);
 $proof_and_false_false = $proof_and_false_false(true);
 $proof_and_false_false = $proof_and_false_false(false);
 var_dump($proof_and_false_false);
+
+// Proofing logical or
+$proof_or_true_false = $or($true);
+$proof_or_true_false = $proof_or_true_false($false);
+$proof_or_true_false = $proof_or_true_false(true);
+$proof_or_true_false = $proof_or_true_false(false);
+var_dump($proof_or_true_false);
+
+$proof_or_false_false = $or($false);
+$proof_or_false_false = $proof_or_false_false($false);
+$proof_or_false_false = $proof_or_false_false(true);
+$proof_or_false_false = $proof_or_false_false(false);
+var_dump($proof_or_false_false);
+
+$proof_or_false_true = $or($false);
+$proof_or_false_true = $proof_or_false_true($true);
+$proof_or_false_true = $proof_or_false_true(true);
+$proof_or_false_true = $proof_or_false_true(false);
+var_dump($proof_or_false_true);
+
