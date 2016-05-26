@@ -76,31 +76,24 @@ $six = function ($s) {
   };
 };
 
-// λs. λz. s (s (s (s (s (s (s z))))))
-$six = function ($s) {
-  return function ($z) use ($s) {
-    return $s($s($s($s($s($s($s($z)))))));
-  };
-};
-
 // λs. λz. s (s (s (s (s (s (s (s z)))))))
 $seven = function ($s) {
   return function ($z) use ($s) {
-    return $s($s($s($s($s($s($s($s($z))))))));
+    return $s($s($s($s($s($s($s($z)))))));
   };
 };
 
 // λs. λz. s (s (s (s (s (s (s (s (s z))))))))
 $eight = function ($s) {
   return function ($z) use ($s) {
-    return $s($s($s($s($s($s($s($s($s($z)))))))));
+    return $s($s($s($s($s($s($s($s($z))))))));
   };
 };
 
 // λs. λz. s (s (s (s (s (s (s (s (s (s z)))))))))
 $nine = function ($s) {
   return function ($z) use ($s) {
-    return $s($s($s($s($s($s($s($s($s($s($z))))))))));
+    return $s($s($s($s($s($s($s($s($s($z)))))))));
   };
 };
 
@@ -114,6 +107,21 @@ $succ = function ($n) {
     return function ($z) use ($s, $n) {
       $sub_call = $n($s);
       return $s($sub_call($z));
+    };
+  };
+};
+
+// Arithmetic operations start here
+// (+) is just $succ applied $x times to a church encoded number $n
+// λx. λn. λs. λz. x s (n s z)
+${'+'} = function ($x) {
+  return function ($n) use ($x) {
+    return function ($s) use ($x, $n) {
+      return function ($z) use ($s, $x, $n) {
+        $subcall_1 = $n($s);
+        $subcall_2 = $x($s);
+        return $subcall_2($subcall_1($z));
+      };
     };
   };
 };

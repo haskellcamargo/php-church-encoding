@@ -33,3 +33,13 @@ $proof_next_four_is_five = $proof_next_four_is_five(function ($n) {
 });
 $proof_next_four_is_five = $proof_next_four_is_five(0); // native base
 var_dump($proof_next_four_is_five);
+
+// Proofing sum
+# 9 + 8 = 17
+$proof_9_plus_8_is_17 = ${'+'}($nine);
+$proof_9_plus_8_is_17 = $proof_9_plus_8_is_17($eight);
+$proof_9_plus_8_is_17 = $proof_9_plus_8_is_17(function ($n) {
+  return $n + 1;
+});
+$proof_9_plus_8_is_17 = $proof_9_plus_8_is_17(0);
+var_dump($proof_9_plus_8_is_17);

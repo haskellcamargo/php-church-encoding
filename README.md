@@ -25,7 +25,7 @@ We represent booleans, we build boolean algebra and we represent numerals and ba
   - [x] 8
   - [x] 9
   - Arithmetic
-    - [ ] +
+    - [x] +
     - [ ] -
     - [ ] ×
     - [ ] ÷
