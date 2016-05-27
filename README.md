@@ -28,7 +28,7 @@ We represent booleans, we build boolean algebra and we represent numerals and ba
   - Arithmetic
     - [x] +
     - [ ] -
-    - [ ] ×
+    - [x] ×
     - [ ] ÷
 - [ ] Pairs
 

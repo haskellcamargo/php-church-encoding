@@ -27,70 +27,70 @@
 // Well, their representation are the same!
 // Let's build the natural base numbers [0-9]
 
-// λs. λz. z
+// λs.λz. z
 $zero = function ($s) {
   return function ($z) {
     return $z;
   };
 };
 
-// λs. λz. s (s z)
+// λs.λz. s (s z)
 $one = function ($s) {
   return function ($z) use ($s) {
     return $s($z);
   };
 };
 
-// λs. λz. s (s (s z))
+// λs.λz. s (s (s z))
 $two = function ($s) {
   return function ($z) use ($s) {
     return $s($s($z));
   };
 };
 
-// λs. λz. s (s (s (s z)))
+// λs.λz. s (s (s (s z)))
 $three = function ($s) {
   return function ($z) use ($s) {
     return $s($s($s($z)));
   };
 };
 
-// λs. λz. s (s (s (s (s z))))
+// λs.λz. s (s (s (s (s z))))
 $four = function ($s) {
   return function ($z) use ($s) {
     return $s($s($s($s($z))));
   };
 };
 
-// λs. λz. s (s (s (s (s (s z)))))
+// λs.λz. s (s (s (s (s (s z)))))
 $five = function ($s) {
   return function ($z) use ($s) {
     return $s($s($s($s($s($z)))));
   };
 };
 
-// λs. λz. s (s (s (s (s (s (s z))))))
+// λs.λz. s (s (s (s (s (s (s z))))))
 $six = function ($s) {
   return function ($z) use ($s) {
     return $s($s($s($s($s($s($z))))));
   };
 };
 
-// λs. λz. s (s (s (s (s (s (s (s z)))))))
+// λs.λz. s (s (s (s (s (s (s (s z)))))))
 $seven = function ($s) {
   return function ($z) use ($s) {
     return $s($s($s($s($s($s($s($z)))))));
   };
 };
 
-// λs. λz. s (s (s (s (s (s (s (s (s z))))))))
+// λs.λz. s (s (s (s (s (s (s (s (s z))))))))
 $eight = function ($s) {
   return function ($z) use ($s) {
     return $s($s($s($s($s($s($s($s($z))))))));
   };
 };
 
-// λs. λz. s (s (s (s (s (s (s (s (s (s z)))))))))
+// λs.λz. s (s (s (s (s (s (s (s (s (s z)))))))))
 $nine = function ($s) {
   return function ($z) use ($s) {
     return $s($s($s($s($s($s($s($s($s($z)))))))));
@@ -101,7 +101,7 @@ $nine = function ($s) {
 // It combines a numeral $n and returns another church numeral. Yields a
 // function (s)(z) -> s (... z ...) * $n
 // We can define as:
-// λn. λs. λz. s (n s z)
+// λn.λs.λz. s (n s z)
 $succ = function ($n) {
   return function ($s) use ($n) {
     return function ($z) use ($s, $n) {
@@ -113,15 +113,24 @@ $succ = function ($n) {
 
 // Arithmetic operations start here
 // (+) is just $succ applied $x times to a church encoded number $n
-// λx. λn. λs. λz. x s (n s z)
-${'+'} = function ($x) {
-  return function ($n) use ($x) {
-    return function ($s) use ($x, $n) {
-      return function ($z) use ($s, $x, $n) {
-        $subcall_1 = $n($s);
+// λx.λy.λs.λz. x s (y s z)
+${'+'} = $plus = function ($x) {
+  return function ($y) use ($x) {
+    return function ($s) use ($x, $y) {
+      return function ($z) use ($s, $x, $y) {
+        $subcall_1 = $y($s);
         $subcall_2 = $x($s);
         return $subcall_2($subcall_1($z));
       };
     };
+  };
+};
+
+// We can define multiplication (*) as repeated applications of plus.
+// λx. λy. x (plus y) zero
+${'*'} = function ($x) use ($plus, $zero) {
+  return function ($y) use ($x, $plus, $zero) {
+    $call = $x($plus($y));
+    return $call($zero);
   };
 };

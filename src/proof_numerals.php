@@ -43,3 +43,13 @@ $proof_9_plus_8_is_17 = $proof_9_plus_8_is_17(function ($n) {
 });
 $proof_9_plus_8_is_17 = $proof_9_plus_8_is_17(0);
 var_dump($proof_9_plus_8_is_17);
+
+// Proofing multiplication
+# 4 * 3 = 12
+$proof_4_times_3_is_12 = ${'*'}($four);
+$proof_4_times_3_is_12 = $proof_4_times_3_is_12($three);
+$proof_4_times_3_is_12 = $proof_4_times_3_is_12(function ($n) {
+  return $n + 1;
+});
+$proof_4_times_3_is_12 = $proof_4_times_3_is_12(0);
+var_dump($proof_4_times_3_is_12);
