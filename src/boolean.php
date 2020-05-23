@@ -25,31 +25,16 @@
 
 // The representation of true is:
 // λt.λf.t
-$true = function ($t) {
-  return function ($f) use ($t) {
-    return $t;
-  };
-};
+$true = fn($t) => fn($f) => $t;
 
 // The representation of f is:
 // λt.λf.f
-$false = function ($t) {
-  return function ($f) {
-    return $f;
-  };
-};
+$false = fn($t) => fn($f) => $f;
 
 // Receives a encoded logic $l value, an arbitrary expression $m and another
 // arbitrary expression $n and evaluates to their primitive forms.
 // λl.λm.λn. l m n
-$boolean_to_primitive = function ($l) {
-  return function ($m) use ($l) {
-    return function ($n) use ($l, $m) {
-      $call = $l($m);
-      return $call($n);
-    };
-  };
-};
+$boolean_to_primitive = fn($l) => fn($m) => fn($n) => $l($m)($n);
 
 // Here we start to implement boolean algebra.
 // Logical "and"
@@ -57,23 +42,13 @@ $boolean_to_primitive = function ($l) {
 // if $l is $false. Therefore, by logic, if $l is $true and $c is $false, we
 // return $c ($false), otherwise, when $l and $c are $true, return $true
 // λl.λc l c false
-$and = function ($l) use ($false) {
-  return function ($c) use ($l, $false) {
-    $call = $l($c);
-    return $call($false);
-  };
-};
+$and = fn($l) => fn($c) => $l($c)($false);
 
 // Logical "or"
 // $l is the logic value. When $l is $false, return $c ($true or $false). When
 // $l is $true, return $true (one matches, short circuit).
 // λl.λc. l true c
-$or = function ($l) use ($true) {
-  return function ($c) use ($l, $true) {
-    $call = $l($true);
-    return $call($c);
-  };
-};
+$or = fn($l) => fn($c) => $l($true)($c);
 
 // Logical "not"
 // Return the oposite value by calling the conversion passing other encoded
@@ -81,19 +56,9 @@ $or = function ($l) use ($true) {
 // return church-encoded values.
 // Trivial.
 // λl. l false true
-$not = function ($l) use ($true, $false) {
-  $call = $l($false);
-  return $call($true);
-};
+$not = fn($l) => $l($false)($true);
 
 // Only one of the operands can be true. We get false if both are false or both
 // are true.
 // λa.λb.a (b false true) (b true false)
-$xor = function ($a) use ($true, $false) {
-  return function ($b) use ($a, $true, $false) {
-    $b_false_true = $b($false);
-    $call = $a($b_false_true($true));
-    $b_true_false = $b($true);
-    return $call($b_true_false($false));
-  };
-};
+$xor = fn($a) => fn($b) => $a($b($false)($true))($b($true)($false));
