@@ -28,109 +28,47 @@
 // Let's build the natural base numbers [0-9]
 
 // λs.λz. z
-$zero = function ($s) {
-  return function ($z) {
-    return $z;
-  };
-};
+$zero = fn($s) => fn($z) => $z; 
 
 // λs.λz. s (s z)
-$one = function ($s) {
-  return function ($z) use ($s) {
-    return $s($z);
-  };
-};
+$one    = fn($s) => fn($z) => $s($z); 
 
 // λs.λz. s (s (s z))
-$two = function ($s) {
-  return function ($z) use ($s) {
-    return $s($s($z));
-  };
-};
+$two    = fn($s) => fn($z) => $s($s($z));
 
 // λs.λz. s (s (s (s z)))
-$three = function ($s) {
-  return function ($z) use ($s) {
-    return $s($s($s($z)));
-  };
-};
+$three  = fn($s) => fn($z) => $s($s($s($z)));
 
 // λs.λz. s (s (s (s (s z))))
-$four = function ($s) {
-  return function ($z) use ($s) {
-    return $s($s($s($s($z))));
-  };
-};
+$four   = fn($s) => fn($z) => $s($s($s($s($z))));
 
 // λs.λz. s (s (s (s (s (s z)))))
-$five = function ($s) {
-  return function ($z) use ($s) {
-    return $s($s($s($s($s($z)))));
-  };
-};
+$five   = fn($s) => fn($z) => $s($s($s($s($s($z)))));
 
 // λs.λz. s (s (s (s (s (s (s z))))))
-$six = function ($s) {
-  return function ($z) use ($s) {
-    return $s($s($s($s($s($s($z))))));
-  };
-};
+$six    = fn($s) => fn($z) => $s($s($s($s($s($s($z))))));
 
 // λs.λz. s (s (s (s (s (s (s (s z)))))))
-$seven = function ($s) {
-  return function ($z) use ($s) {
-    return $s($s($s($s($s($s($s($z)))))));
-  };
-};
+$seven  = fn($s) => fn($z) => $s($s($s($s($s($s($s($z)))))));
 
 // λs.λz. s (s (s (s (s (s (s (s (s z))))))))
-$eight = function ($s) {
-  return function ($z) use ($s) {
-    return $s($s($s($s($s($s($s($s($z))))))));
-  };
-};
+$eight  = fn($s) => fn($z) => $s($s($s($s($s($s($s($s($z))))))));
 
 // λs.λz. s (s (s (s (s (s (s (s (s (s z)))))))))
-$nine = function ($s) {
-  return function ($z) use ($s) {
-    return $s($s($s($s($s($s($s($s($s($z)))))))));
-  };
-};
+$nine   = fn($s) => fn($z) => $s($s($s($s($s($s($s($s($s($z)))))))));
 
 // Defining the successor of a number according to the orders
 // It combines a numeral $n and returns another church numeral. Yields a
 // function (s)(z) -> s (... z ...) * $n
 // We can define as:
 // λn.λs.λz. s (n s z)
-$succ = function ($n) {
-  return function ($s) use ($n) {
-    return function ($z) use ($s, $n) {
-      $sub_call = $n($s);
-      return $s($sub_call($z));
-    };
-  };
-};
+$succ = fn($n) => fn($s) => fn($z) => $s($n($s)($z));
 
 // Arithmetic operations start here
 // (+) is just $succ applied $x times to a church encoded number $n
 // λx.λy.λs.λz. x s (y s z)
-${'+'} = $plus = function ($x) {
-  return function ($y) use ($x) {
-    return function ($s) use ($x, $y) {
-      return function ($z) use ($s, $x, $y) {
-        $subcall_1 = $y($s);
-        $subcall_2 = $x($s);
-        return $subcall_2($subcall_1($z));
-      };
-    };
-  };
-};
+${'+'} = $plus = fn($x) => fn($y) => fn($s) => fn($z) => $x($s)($y($s)($z)); 
 
 // We can define multiplication (*) as repeated applications of plus.
 // λx. λy. x (plus y) zero
-${'*'} = function ($x) use ($plus, $zero) {
-  return function ($y) use ($x, $plus, $zero) {
-    $call = $x($plus($y));
-    return $call($zero);
-  };
-};
+${'*'} = $mul = fn($x) => fn($y) => $x($plus($y))($zero);
